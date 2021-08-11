@@ -1,16 +1,12 @@
-import json
-from typing import Any, List
+from typing import List, Generic, TypeVar, TypedDict
+
+from app.models.dicts.fec_pagination_dict import FecPaginationDict
+
+T = TypeVar('T', bound=TypedDict)
 
 
-class FecResponse():
-    class FecPagination():
-        def __init__(self, page: int, count: int, pages: int, per_page: int) -> None:
-            self.page = page
-            self.count = count
-            self.pages = pages
-            self.per_page = per_page
+class FecResponse(Generic[T]):
 
-    def __init__(self, results: List[Any], pagination: json) -> None:
+    def __init__(self, results: List[T], pagination: FecPaginationDict) -> None:
         self.results = results
-        self.pagination = FecResponse.FecPagination(
-            pagination['page'], pagination['count'], pagination['pages'], pagination['per_page'])
+        self.pagination = pagination

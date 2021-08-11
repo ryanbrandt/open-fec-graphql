@@ -1,0 +1,18 @@
+version: "3.4"
+
+services:
+  graphql-api:
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+    container_name: "open-fec-graphql"
+    volumes:
+      - "./:/usr/src/app"
+    ports:
+      - "5000:5000"
+    stdin_open: true
+    environment:
+      - FLASK_APP=app/app.py
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
