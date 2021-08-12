@@ -1,7 +1,6 @@
-
-from app.models.base_graphql_model import BaseGraphQLModel
 import graphene
 
+from app.models.base_graphql_model import BaseGraphQLModel
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 
 

@@ -11,7 +11,8 @@ from app.models.candidate import Candidate
 class Query(graphene.ObjectType):
     LOGGER = get_logger(__name__)
 
-    candidate = graphene.Field(Candidate, id=graphene.String(required=True))
+    candidate = graphene.Field(Candidate, id=graphene.String(
+        required=True))
     candidate_collection = graphene.List(Candidate)
 
     async def resolve_candidate(root, info, id) -> Candidate:

@@ -12,6 +12,10 @@ aiohttp = "*"
 
 [dev-packages]
 autopep8 = "*"
+pytest = "*"
+pylint = "*"
+pytest-mock = "*"
+pep8 = "*"
 
 [requires]
 python_version = "3.9"
