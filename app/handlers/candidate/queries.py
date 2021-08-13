@@ -15,7 +15,7 @@ class Query(graphene.ObjectType):
         required=True))
     candidate_collection = graphene.List(Candidate)
 
-    async def resolve_candidate(root, info, id) -> Candidate:
+    async def resolve_candidate(self, info, id) -> Candidate:
         result = await FecApi.get(f'/candidate/{id}', FecCandidateDict)
 
         if len(result.results) > 0:
@@ -25,7 +25,7 @@ class Query(graphene.ObjectType):
 
         return None
 
-    async def resolve_candidate_collection(root, info) -> List[Candidate]:
+    async def resolve_candidate_collection(self, info) -> List[Candidate]:
         result = await FecApi.get(f'/candidates', FecCandidateDict)
 
         if len(result.results) > 0:

@@ -16,6 +16,7 @@ pytest = "*"
 pylint = "*"
 pytest-mock = "*"
 pep8 = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.9"
