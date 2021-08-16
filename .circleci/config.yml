@@ -11,7 +11,7 @@ jobs:
       - run:
           command: |
             sudo pip install pipenv
-            pipenv install
+            pipenv install --dev
 
       - run:
           command: |
