@@ -8,6 +8,7 @@ class BaseGraphQLModel(Generic[T]):
     result_dict: Type[T]
 
     def __init__(self, result_dict: Type[T]) -> None:
+        super().__init__()
         self.result_dict = result_dict
 
     def collect_attributes(self):

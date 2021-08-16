@@ -1,6 +1,6 @@
 from app.app import create_app
 
-MOCK_QUERY = '{candidateCollection{candidateId}}'
+MOCK_QUERY = '{candidateCollection{items{candidateId}}}'
 
 
 def test_app_get_graphiql():

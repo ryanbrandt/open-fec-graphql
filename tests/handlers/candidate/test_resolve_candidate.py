@@ -2,7 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
-from app.models.candidate import Candidate
+from app.models.graphql.graphql_candidate import GraphQLCandidate
 from app.handlers.candidate.queries import Query
 from app.models.fec_response import FecResponse
 
@@ -44,4 +44,4 @@ async def test_resolve_candidate_with_results_returns_Candidate(mocker: MockerFi
 
     result = await query.resolve_candidate(None, 'id')
 
-    assert result.__dict__ == Candidate(MOCK_CANDIDATE).__dict__
+    assert result.__dict__ == GraphQLCandidate(MOCK_CANDIDATE).__dict__
