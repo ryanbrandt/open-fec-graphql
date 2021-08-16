@@ -24,3 +24,4 @@ python_version = "3.9"
 
 [scripts]
 dev = "bash ./scripts/dev-runtime.sh"
+test = "pytest -v"
