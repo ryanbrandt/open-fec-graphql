@@ -45,23 +45,3 @@ async def test_resolve_candidate_with_results_returns_Candidate(mocker: MockerFi
     result = await query.resolve_candidate(None, 'id')
 
     assert result.__dict__ == Candidate(MOCK_CANDIDATE).__dict__
-
-
-@pytest.mark.asyncio
-async def test_resolve_candidate_collection_calls_api(mocker: MockerFixture):
-    spy = mocker.patch('app.utils.api.FecApi.get',
-                       return_value=MOCK_EMPTY_RESPONSE)
-
-    await query.resolve_candidate_collection(None)
-
-    assert spy.call_count == 1
-    assert spy.call_args.args == ('/candidates', FecCandidateDict)
-
-
-@pytest.mark.asyncio
-async def test_resolve_candidate_collection_no_results_returns_None(mocker: MockerFixture):
-    mocker.patch('app.utils.api.FecApi.get', return_value=MOCK_EMPTY_RESPONSE)
-
-    result = await query.resolve_candidate_collection(None)
-
-    assert result == None

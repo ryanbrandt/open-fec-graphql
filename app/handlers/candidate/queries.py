@@ -1,5 +1,5 @@
 import graphene
-from typing import List
+from typing import List, Union
 
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.candidate import Candidate
@@ -15,7 +15,7 @@ class Query(graphene.ObjectType):
         required=True))
     candidate_collection = graphene.List(Candidate)
 
-    async def resolve_candidate(self, info, id) -> Candidate:
+    async def resolve_candidate(self, info, id) -> Union[Candidate, None]:
         result = await FecApi.get(f'/candidate/{id}', FecCandidateDict)
 
         if len(result.results) > 0:
@@ -31,4 +31,4 @@ class Query(graphene.ObjectType):
         if len(result.results) > 0:
             return [Candidate(candidate) for candidate in result.results]
 
-        return None
+        return []

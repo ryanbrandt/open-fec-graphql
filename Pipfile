@@ -17,6 +17,7 @@ pylint = "*"
 pytest-mock = "*"
 pep8 = "*"
 pytest-asyncio = "*"
+aioresponses = "*"
 
 [requires]
 python_version = "3.9"
