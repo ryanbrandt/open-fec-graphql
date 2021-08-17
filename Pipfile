@@ -18,6 +18,7 @@ pytest-mock = "*"
 pep8 = "*"
 pytest-asyncio = "*"
 aioresponses = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.9"

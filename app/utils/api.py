@@ -1,11 +1,11 @@
 import aiohttp
+import os
 from typing import Dict, TypeVar, Type, TypedDict
 from graphql.error import GraphQLError
 from flask import request
 
 from app.models.fec_response import FecResponse
 from .setup_logger import get_logger
-from .secrets import BASE_URL
 
 T = TypeVar('T', bound=TypedDict)
 
@@ -26,11 +26,13 @@ class FecApi():
         merged_params = params | auth_params
 
         async with aiohttp.ClientSession() as session:
-            url = f'{BASE_URL}{url}'
-            FecApi.LOGGER.info(
-                f'Sending GET to {url} with params {merged_params}')
+            BASE_URL = os.environ['FEC_BASE_URL']
+            full_url = f'{BASE_URL}{url}'
 
-            async with session.get(url, params=merged_params) as response:
+            FecApi.LOGGER.info(
+                f'Sending GET to {full_url} with params {merged_params}')
+
+            async with session.get(full_url, params=merged_params) as response:
                 FecApi.LOGGER.info(f'Received {response.status} from {url}')
 
                 ok = response.status < 399

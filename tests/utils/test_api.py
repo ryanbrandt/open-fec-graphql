@@ -3,12 +3,12 @@ from aioresponses import aioresponses
 from typing import Any
 from graphql.error import GraphQLError
 
-from app.utils.secrets import BASE_URL
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.utils.api import FecApi
 from app.app import create_app
 
 MOCK_AUTHORIZED_URL = '/graphql?api_key=key'
+BASE_URL = 'http://fec.com'
 
 
 @pytest.fixture

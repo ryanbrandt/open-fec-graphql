@@ -5,6 +5,7 @@ from flask_cors import CORS
 from flask_graphql import GraphQLView
 from graphene.types.schema import Schema
 from graphql.execution.executors.asyncio import AsyncioExecutor
+from dotenv import load_dotenv
 
 
 from .handlers.query import bootstrap_queries
@@ -31,5 +32,8 @@ def create_app() -> Flask:
 
 
 if __name__ == '__main__':
+    if os.environ['FLASK_ENV'] == 'development':
+        load_dotenv()
+
     flask_app = create_app()
     flask_app.run()
