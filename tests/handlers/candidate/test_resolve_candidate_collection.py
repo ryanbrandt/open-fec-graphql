@@ -1,8 +1,10 @@
+from unittest.mock import call
 import pytest
 from pytest_mock import MockerFixture
 
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.graphql_candidate_collection import GraphQLCandidateCollection
+from app.models.graphql.candidate_graphql_filter import CandidateGraphQLFilter
 from app.handlers.candidate.queries import Query
 from app.models.fec_response import FecResponse
 
@@ -27,7 +29,22 @@ async def test_resolve_candidate_collection_calls_api(mocker: MockerFixture):
     await query.resolve_candidate_collection(None)
 
     assert spy.call_count == 1
-    assert spy.call_args.args == ('/candidates', FecCandidateDict)
+    assert spy.call_args.args == ('/candidates/search', FecCandidateDict)
+    spy.assert_called_with(
+        '/candidates/search', FecCandidateDict, params={})
+
+
+@pytest.mark.asyncio
+async def test_resolve_candidate_collection_calls_api_with_CandidateGraphQLFilter_params(mocker: MockerFixture):
+    MOCK_CANDIDATE_FILTER = CandidateGraphQLFilter(name_contains='some name')
+
+    spy = mocker.patch('app.utils.api.FecApi.get',
+                       return_value=MOCK_EMPTY_RESPONSE)
+
+    await query.resolve_candidate_collection(None, where=MOCK_CANDIDATE_FILTER)
+
+    spy.assert_called_with(
+        '/candidates/search', FecCandidateDict, params=MOCK_CANDIDATE_FILTER.build_api_filter_dict())
 
 
 @pytest.mark.asyncio

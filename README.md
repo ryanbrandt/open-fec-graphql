@@ -1,5 +1,7 @@
 # Open FEC GraphQL Server
 
+[![ryanbrandt](https://circleci.com/gh/ryanbrandt/open-fec-graphql.svg?style=svg)](https://app.circleci.com/pipelines/github/ryanbrandt/open-fec-graphql)
+
 A GraphQL wrapper around the [Open FEC API](https://api.open.fec.gov/developers/) for easier consumption
 
 ## Running Locally

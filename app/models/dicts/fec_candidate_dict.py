@@ -9,6 +9,7 @@ class FecCandidateDict(TypedDict):
     election_years: list[str]
     address_city: str
     address_state: str
-    district_number: str
+    district: str
+    district_number: int
     office_full: str
     party_full: str

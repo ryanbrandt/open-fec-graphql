@@ -16,7 +16,7 @@ class Query(graphene.ObjectType):
         required=True))
     candidate_collection = graphene.Field(
         GraphQLCandidateCollection, where=graphene.Argument(
-            CandidateGraphQLFilter)
+            CandidateGraphQLFilter, required=False)
     )
 
     async def resolve_candidate(self, info, id) -> Union[GraphQLCandidate, None]:
@@ -29,7 +29,7 @@ class Query(graphene.ObjectType):
 
         return None
 
-    async def resolve_candidate_collection(self, info, where: CandidateGraphQLFilter = None) -> GraphQLCandidateCollection:
-        result = await FecApi.get(f'/candidates', FecCandidateDict)
+    async def resolve_candidate_collection(self, info, where: Union[CandidateGraphQLFilter, None] = None) -> GraphQLCandidateCollection:
+        result = await FecApi.get(f'/candidates/search', FecCandidateDict, params=where.build_api_filter_dict() if where else {})
 
         return GraphQLCandidateCollection(result.results, pagination=result.pagination)

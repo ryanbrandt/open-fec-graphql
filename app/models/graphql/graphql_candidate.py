@@ -10,6 +10,9 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
     office_full = graphene.String()
     state = graphene.String()
     party_full = graphene.String()
+    election_years = graphene.List(graphene.String)
+    district = graphene.String()
+    district_number = graphene.Int()
 
     def __init__(self, candidate: FecCandidateDict, *args, **kwargs):
         super().__init__(result_dict=candidate, *args, **kwargs)

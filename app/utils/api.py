@@ -1,6 +1,6 @@
 import aiohttp
 import os
-from typing import Dict, TypeVar, Type, TypedDict
+from typing import TypeVar, Type, TypedDict
 from graphql.error import GraphQLError
 from flask import request
 
@@ -16,7 +16,7 @@ class FecApi():
     LOGGER = get_logger(__name__)
 
     @staticmethod
-    async def get(url: str, dict_interface: Type[T], params: Dict = {}) -> FecResponse[T]:
+    async def get(url: str, dict_interface: Type[T], params: dict = {}) -> FecResponse[T]:
         if API_KEY_PARAM not in request.args:
             raise GraphQLError('API key is required')
 
@@ -33,7 +33,8 @@ class FecApi():
                 f'Sending GET to {full_url} with params {merged_params}')
 
             async with session.get(full_url, params=merged_params) as response:
-                FecApi.LOGGER.info(f'Received {response.status} from {url}')
+                FecApi.LOGGER.info(
+                    f'Received {response.status} from {full_url}')
 
                 ok = response.status < 399
 
