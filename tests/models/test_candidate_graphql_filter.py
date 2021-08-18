@@ -1,7 +1,7 @@
 from pytest_mock import MockerFixture
 
-from app.models.graphql.candidate_graphql_filter import CandidateGraphQLFilter
-from app.models.graphql.base_graphql_filter import BaseGraphQLFilter
+from app.models.graphql.filters.candidate_graphql_filter import CandidateGraphQLFilter
+from app.models.graphql.filters.base_graphql_filter import BaseGraphQLFilter
 
 
 def test_build_api_filter_dict_calls_super(mocker: MockerFixture):

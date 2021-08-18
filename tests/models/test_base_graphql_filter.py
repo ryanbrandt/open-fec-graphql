@@ -1,4 +1,4 @@
-from app.models.graphql.base_graphql_filter import BaseGraphQLFilter
+from app.models.graphql.filters.base_graphql_filter import BaseGraphQLFilter
 
 
 def test_build_api_filter_dict_no_page_returns_empty_dict():

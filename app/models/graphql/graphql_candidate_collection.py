@@ -1,9 +1,8 @@
-from app.models.graphql.graphql_pagination import GraphQLPagination
-from app.models.dicts.fec_pagination_dict import FecPaginationDict
-from app.models.graphql.graphql_candidate import GraphQLCandidate
 import graphene
 from typing import List
 
+from app.models.dicts.fec_pagination_dict import FecPaginationDict
+from app.models.graphql.graphql_candidate import GraphQLCandidate
 from .base_graphql_collection import BaseGraphQLCollection
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 

@@ -4,7 +4,7 @@ from typing import Union
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.graphql_candidate import GraphQLCandidate
 from app.models.graphql.graphql_candidate_collection import GraphQLCandidateCollection
-from app.models.graphql.candidate_graphql_filter import CandidateGraphQLFilter
+from app.models.graphql.filters.candidate_graphql_filter import CandidateGraphQLFilter
 from app.utils.setup_logger import get_logger
 from app.utils.api import FecApi
 
@@ -15,7 +15,7 @@ class Query(graphene.ObjectType):
     candidate = graphene.Field(GraphQLCandidate, id=graphene.String(
         required=True))
     candidate_collection = graphene.Field(
-        GraphQLCandidateCollection, where=graphene.Argument(
+        lambda: GraphQLCandidateCollection, where=graphene.Argument(
             CandidateGraphQLFilter, required=False)
     )
 

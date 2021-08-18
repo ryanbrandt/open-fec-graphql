@@ -19,12 +19,15 @@ class CandidateOfficeEnum(graphene.Enum):
 
 
 class CandidateGraphQLFilter(BaseGraphQLFilter, graphene.InputObjectType):
+    candidate_id_in = graphene.List(
+        graphene.String, required=False, default=None)
     name_contains = graphene.String(required=False, default=None)
     office_in = graphene.List(CandidateOfficeEnum)
     party_in = graphene.List(CandidatePartyEnum)
 
-    def __init__(self, name_contains=None, office_in=None, party_in=None, *args, **kwargs):
+    def __init__(self, candidate_id_in=None, name_contains=None, office_in=None, party_in=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.candidate_id_in = candidate_id_in
         self.name_contains = name_contains
         self.office_in = office_in
         self.party_in = party_in
@@ -32,8 +35,9 @@ class CandidateGraphQLFilter(BaseGraphQLFilter, graphene.InputObjectType):
     def build_api_filter_dict(self) -> dict:
         filter_dict: FecCandidateSearchFilterDict = {}
 
-        if self.id_in:
-            filter_dict['candidate_id'] = [str(id) for id in iter(self.id_in)]
+        if self.candidate_id_in:
+            filter_dict['candidate_id'] = [
+                str(id) for id in iter(self.candidate_id_in)]
 
         if self.name_contains:
             filter_dict['q'] = str(self.name_contains)

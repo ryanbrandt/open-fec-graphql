@@ -26,7 +26,6 @@ def bootstrap_queries():
         except ModuleNotFoundError as e:
             print(e, file=sys.stderr)
 
-    queries_base_classes = queries_base_classes[::-1]
     properties = {}
 
     for base_class in queries_base_classes:

@@ -1,14 +1,13 @@
-from unittest.mock import call
 import pytest
 from pytest_mock import MockerFixture
 
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.graphql_candidate_collection import GraphQLCandidateCollection
-from app.models.graphql.candidate_graphql_filter import CandidateGraphQLFilter
-from app.handlers.candidate.queries import Query
+from app.models.graphql.filters.candidate_graphql_filter import CandidateGraphQLFilter
+import app.handlers.candidate.queries
 from app.models.fec_response import FecResponse
 
-query = Query()
+query = app.handlers.candidate.queries.Query()
 
 MOCK_EMPTY_RESPONSE = FecResponse(
     [], {'page': 1, 'count': 0, 'pages': 1, 'per_page': 20})
