@@ -15,7 +15,7 @@ class Query(graphene.ObjectType):
     candidate = graphene.Field(GraphQLCandidate, id=graphene.String(
         required=True))
     candidate_collection = graphene.Field(
-        lambda: GraphQLCandidateCollection, where=graphene.Argument(
+        GraphQLCandidateCollection, where=graphene.Argument(
             CandidateGraphQLFilter, required=False)
     )
 
