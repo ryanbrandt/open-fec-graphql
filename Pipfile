@@ -9,6 +9,7 @@ flask-cors = "*"
 graphene = "*"
 flask-graphql = "*"
 aiohttp = "*"
+redis = "*"
 
 [dev-packages]
 autopep8 = "*"
@@ -24,5 +25,4 @@ python-dotenv = "*"
 python_version = "3.9"
 
 [scripts]
-dev = "bash ./scripts/dev-runtime.sh"
 test = "pytest -v"

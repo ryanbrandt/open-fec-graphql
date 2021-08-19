@@ -7,6 +7,7 @@ from app.models.graphql.graphql_candidate_collection import GraphQLCandidateColl
 from app.models.graphql.filters.candidate_graphql_filter import CandidateGraphQLFilter
 from app.utils.setup_logger import get_logger
 from app.utils.api import FecApi
+from app.cache.cached_query import cached_query
 
 
 class Query(graphene.ObjectType):
@@ -19,6 +20,7 @@ class Query(graphene.ObjectType):
             CandidateGraphQLFilter, required=False)
     )
 
+    @cached_query
     async def resolve_candidate(self, info, id) -> Union[GraphQLCandidate, None]:
         result = await FecApi.get(f'/candidate/{id}', FecCandidateDict)
 
@@ -29,6 +31,7 @@ class Query(graphene.ObjectType):
 
         return None
 
+    @cached_query
     async def resolve_candidate_collection(self, info, where: Union[CandidateGraphQLFilter, None] = None) -> GraphQLCandidateCollection:
         result = await FecApi.get(f'/candidates/search', FecCandidateDict, params=where.build_api_filter_dict() if where else {})
 

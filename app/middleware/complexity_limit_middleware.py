@@ -24,24 +24,23 @@ class ComplexityLimitMiddleware(GraphQLCoreBackend):
         return max_depth
 
     async def resolve(self, next, root, info: ResolveInfo, *args, **kwargs):
-        try:
+        if info.context.data:
             parsed_body = json.loads(info.context.data)
 
             document = super().document_from_string(
                 info.schema, parsed_body['query'])
-            ast = document.document_ast
 
-            for definition in ast.definitions:
-                if definition.operation != 'query':
-                    continue
+            if 'IntrospectionQuery' not in document.document_string:
+                ast = document.document_ast
 
-                depth = self.measure_depth(definition.selection_set)
+                for definition in ast.definitions:
+                    if definition.operation != 'query':
+                        continue
 
-                if depth > ComplexityLimitMiddleware.MAXIMUM_DEPTH:
-                    raise GraphQLError(
-                        f'Maximum query depth of {ComplexityLimitMiddleware.MAXIMUM_DEPTH} exceeded')
+                    depth = self.measure_depth(definition.selection_set)
 
-        except Exception as e:
-            ComplexityLimitMiddleware.LOGGER.info(e)
+                    if depth > ComplexityLimitMiddleware.MAXIMUM_DEPTH:
+                        raise GraphQLError(
+                            f'Maximum query depth of {ComplexityLimitMiddleware.MAXIMUM_DEPTH} exceeded')
 
         return await next(root, info, *args, **kwargs)
