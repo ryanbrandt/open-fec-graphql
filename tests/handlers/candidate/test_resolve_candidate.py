@@ -1,15 +1,13 @@
 import pytest
 from pytest_mock import MockerFixture
 
+from tests.mock import MOCK_EMPTY_RESPONSE
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.graphql_candidate import GraphQLCandidate
 from app.handlers.candidate.queries import Query
 from app.models.fec_response import FecResponse
 
 query = Query()
-
-MOCK_EMPTY_RESPONSE = FecResponse(
-    [], {'page': 1, 'count': 0, 'pages': 1, 'per_page': 20})
 
 
 @pytest.mark.asyncio
