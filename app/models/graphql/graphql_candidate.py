@@ -23,7 +23,7 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
         super().__init__(result_dict=candidate, *args, **kwargs)
         self.collect_attributes()
 
-    def get_electioneering_queries(self):
+    def __get_electioneering_queries(self):
         from app.handlers.electioneering.queries import Query as ElectioneeringQueries
 
         return ElectioneeringQueries()
@@ -31,4 +31,4 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
     async def resolve_electioneering_aggregates_collection(self, info, where: Union[BaseGraphQLFilter, None] = None):
         filter_dict = where.build_api_filter_dict() if where else {}
 
-        return await self.get_electioneering_queries().resolve_electioneering_aggregates_collection(info, where=ElectioneeringAggregatesFilter(candidate_id_in=[self.candidate_id], **filter_dict))
+        return await self.__get_electioneering_queries().resolve_electioneering_aggregates_collection(info, where=ElectioneeringAggregatesFilter(candidate_id_in=[self.candidate_id], **filter_dict))

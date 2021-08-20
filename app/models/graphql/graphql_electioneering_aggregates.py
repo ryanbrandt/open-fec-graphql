@@ -18,10 +18,10 @@ class GraphQLElectioneeringAggregates(BaseGraphQLModel, graphene.ObjectType):
         super().__init__(result_dict=aggregates, *args, **kwargs)
         self.collect_attributes()
 
-    def get_candidate_queries(self):
+    def __get_candidate_queries(self):
         from app.handlers.candidate.queries import Query as CandidateQueries
 
         return CandidateQueries()
 
     async def resolve_candidate(self, info):
-        return await self.get_candidate_queries().resolve_candidate(info, id=self.result_dict['candidate_id'])
+        return await self.__get_candidate_queries().resolve_candidate(info, id=self.result_dict['candidate_id'])

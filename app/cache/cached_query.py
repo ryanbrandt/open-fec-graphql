@@ -2,12 +2,13 @@ import pickle
 import json
 import functools
 import hashlib
+from typing import Callable
 
 from .cache import cache
 from app.utils.setup_logger import get_logger
 
 
-def cached_query(fn):
+def cached_query(fn: Callable):
     LOGGER = get_logger(__name__)
 
     def key_to_hash(key: tuple):
