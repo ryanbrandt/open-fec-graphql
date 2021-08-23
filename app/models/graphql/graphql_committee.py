@@ -2,7 +2,6 @@ import graphene
 
 from app.models.graphql.filters.candidate_graphql_filter import CandidateGraphQLFilter
 from app.models.dicts.fec_committee_dict import FecCommitteeDict
-from app.models.graphql.graphql_candidate_collection import GraphQLCandidateCollection
 from .base_graphql_model import BaseGraphQLModel
 
 
@@ -12,7 +11,8 @@ class GraphQLCommittee(BaseGraphQLModel[FecCommitteeDict], graphene.ObjectType):
     party = graphene.String()
     cycles = graphene.List(graphene.Int)
     state = graphene.String()
-    candidate_collection = graphene.Field(GraphQLCandidateCollection)
+    candidate_collection = graphene.Field(
+        'app.models.graphql.graphql_candidate.GraphQLCandidate')
 
     def __init__(self, comittee: FecCommitteeDict, *args, **kwargs) -> None:
         super().__init__(result_dict=comittee, *args, **kwargs)

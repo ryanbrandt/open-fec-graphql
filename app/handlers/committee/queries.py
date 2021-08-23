@@ -3,7 +3,7 @@ from typing import Union
 
 from app.models.graphql.filters.committee_graphql_filter import CommitteeGraphQLFilter
 from app.models.graphql.graphql_committee import GraphQLCommittee
-from app.models.graphql.graphql_committee_collection import GraphQLCommitteeCollection
+from app.models.graphql.collections.graphql_committee_collection import GraphQLCommitteeCollection
 from app.models.dicts.fec_committee_dict import FecCommitteeDict
 from app.utils.api import FecApi
 from app.utils.setup_logger import get_logger

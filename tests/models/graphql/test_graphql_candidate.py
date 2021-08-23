@@ -4,7 +4,7 @@ from pytest_mock import MockerFixture
 
 from app.models.graphql.filters.base_graphql_filter import BaseGraphQLFilter
 from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
-from app.models.graphql.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
+from app.models.graphql.collections.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.graphql_candidate import GraphQLCandidate
 from tests.mock import MOCK_EMPTY_RESPONSE

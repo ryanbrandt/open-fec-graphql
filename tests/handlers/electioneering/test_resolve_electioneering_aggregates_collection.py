@@ -5,7 +5,7 @@ from tests.mock import MOCK_EMPTY_RESPONSE
 from app.handlers.electioneering.queries import Query
 from app.models.dicts.fec_electioneering_aggregates_dict import FecElectioneeringAggregatesDict
 from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
-from app.models.graphql.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
+from app.models.graphql.collections.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
 from app.models.fec_response import FecResponse
 
 query = Query()

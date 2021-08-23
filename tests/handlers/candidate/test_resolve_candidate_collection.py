@@ -3,7 +3,7 @@ from pytest_mock import MockerFixture
 
 from tests.mock import MOCK_EMPTY_RESPONSE
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
-from app.models.graphql.graphql_candidate_collection import GraphQLCandidateCollection
+from app.models.graphql.collections.graphql_candidate_collection import GraphQLCandidateCollection
 from app.models.graphql.filters.candidate_graphql_filter import CandidateGraphQLFilter
 from app.handlers.candidate.queries import Query
 from app.models.fec_response import FecResponse

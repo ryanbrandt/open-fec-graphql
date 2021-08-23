@@ -2,7 +2,7 @@ import graphene
 from typing import List
 
 from .base_graphql_collection import BaseGraphQLCollection
-from .graphql_electioneering_aggregates import GraphQLElectioneeringAggregates
+from app.models.graphql.graphql_electioneering_aggregates import GraphQLElectioneeringAggregates
 from app.models.dicts.fec_pagination_dict import FecPaginationDict
 from app.models.dicts.fec_electioneering_aggregates_dict import FecElectioneeringAggregatesDict
 

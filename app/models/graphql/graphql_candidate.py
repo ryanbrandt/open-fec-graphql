@@ -17,7 +17,7 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
     district = graphene.String()
     district_number = graphene.Int()
     electioneering_aggregates_collection = graphene.Field(
-        'app.models.graphql.graphql_electioneering_aggregates_collection.GraphQLElectioneeringAggregatesCollection', where=graphene.Argument(BaseGraphQLFilter, required=False))
+        'app.models.graphql.collections.graphql_electioneering_aggregates_collection.GraphQLElectioneeringAggregatesCollection', where=graphene.Argument(BaseGraphQLFilter, required=False))
 
     def __init__(self, candidate: FecCandidateDict, *args, **kwargs):
         super().__init__(result_dict=candidate, *args, **kwargs)

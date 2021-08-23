@@ -1,9 +1,10 @@
-from typing import Union
-from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
 import graphene
+from typing import Union
 
+
+from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
 from app.models.dicts.fec_electioneering_aggregates_dict import FecElectioneeringAggregatesDict
-from app.models.graphql.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
+from app.models.graphql.collections.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
 from app.utils.setup_logger import get_logger
 from app.utils.api import FecApi
 from app.cache.cached_query import cached_query
