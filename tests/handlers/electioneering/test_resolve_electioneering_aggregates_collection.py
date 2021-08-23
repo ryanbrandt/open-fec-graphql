@@ -4,7 +4,7 @@ from pytest_mock import MockerFixture
 from tests.mock import MOCK_EMPTY_RESPONSE
 from app.handlers.electioneering.queries import Query
 from app.models.dicts.fec_electioneering_aggregates_dict import FecElectioneeringAggregatesDict
-from app.models.graphql.filters.electioneering_aggregates_filter import ElectioneeringAggregatesFilter
+from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
 from app.models.graphql.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
 from app.models.fec_response import FecResponse
 
@@ -32,7 +32,8 @@ async def test_resolve_electioneering_aggregates_collection_calls_api(mocker: Mo
 
 @pytest.mark.asyncio
 async def test_resolve_electioneering_aggregates_collection_with_ElectioneeringAggregatesFilter_params(mocker: MockerFixture):
-    MOCK_AGGREGATES_FILTER = ElectioneeringAggregatesFilter(cycle_in=[2020])
+    MOCK_AGGREGATES_FILTER = ElectioneeringAggregatesGraphQLFilter(cycle_in=[
+                                                                   2020])
 
     spy = mocker.patch('app.utils.api.FecApi.get',
                        return_value=MOCK_EMPTY_RESPONSE)

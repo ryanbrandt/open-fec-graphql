@@ -1,21 +1,9 @@
 import graphene
 
+from app.models.graphql.enums.candidate_office_enum import CandidateOfficeEnum
+from app.models.graphql.enums.candidate_party_enum import CandidatePartyEnum
 from app.models.dicts.fec_candidate_search_filter_dict import FecCandidateSearchFilterDict
 from .base_graphql_filter import BaseGraphQLFilter
-
-
-class CandidatePartyEnum(graphene.Enum):
-    DEMOCRAT = 'DEM'
-    REPUBLICAN = 'REP'
-    LIBERTARIAN = 'LIB'
-    GREEN = 'GRE'
-    SOCIALIST = 'SOC'
-
-
-class CandidateOfficeEnum(graphene.Enum):
-    HOUSE = 'H'
-    SENATE = 'S'
-    PRESIDENT = 'P'
 
 
 class CandidateGraphQLFilter(BaseGraphQLFilter, graphene.InputObjectType):

@@ -1,7 +1,7 @@
 from typing import Union
 import graphene
 
-from app.models.graphql.filters.electioneering_aggregates_filter import ElectioneeringAggregatesFilter
+from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
 from .base_graphql_model import BaseGraphQLModel
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.filters.base_graphql_filter import BaseGraphQLFilter
@@ -31,4 +31,4 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
     async def resolve_electioneering_aggregates_collection(self, info, where: Union[BaseGraphQLFilter, None] = None):
         filter_dict = where.build_api_filter_dict() if where else {}
 
-        return await self.__get_electioneering_queries().resolve_electioneering_aggregates_collection(info, where=ElectioneeringAggregatesFilter(candidate_id_in=[self.candidate_id], **filter_dict))
+        return await self.__get_electioneering_queries().resolve_electioneering_aggregates_collection(info, where=ElectioneeringAggregatesGraphQLFilter(candidate_id_in=[self.candidate_id], **filter_dict))

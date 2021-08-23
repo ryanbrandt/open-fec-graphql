@@ -10,6 +10,6 @@ from app.models.dicts.fec_electioneering_aggregates_dict import FecElectioneerin
 class GraphQLElectioneeringAggregatesCollection(BaseGraphQLCollection, graphene.ObjectType):
     items = graphene.List(GraphQLElectioneeringAggregates)
 
-    def __init__(self, aggregates=List[FecElectioneeringAggregatesDict], pagination=FecPaginationDict, *args, **kwargs):
+    def __init__(self, aggregates: List[FecElectioneeringAggregatesDict], pagination: FecPaginationDict, *args, **kwargs):
         super().__init__(pagination=pagination, *args, **kwargs)
         self.items = [GraphQLElectioneeringAggregates(a) for a in aggregates]

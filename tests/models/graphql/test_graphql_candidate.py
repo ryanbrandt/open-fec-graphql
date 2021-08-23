@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 from pytest_mock import MockerFixture
 
 from app.models.graphql.filters.base_graphql_filter import BaseGraphQLFilter
-from app.models.graphql.filters.electioneering_aggregates_filter import ElectioneeringAggregatesFilter
+from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
 from app.models.graphql.graphql_electioneering_aggregates_collection import GraphQLElectioneeringAggregatesCollection
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.graphql_candidate import GraphQLCandidate
@@ -33,7 +33,7 @@ async def test_resolve_electioneering_aggregates_collection_without_where(mocked
     result = await candidate.resolve_electioneering_aggregates_collection(None)
 
     mocked_aggregates_resolver.assert_called_once_with(
-        None, where=ElectioneeringAggregatesFilter(candidate_id_in=[candidate.candidate_id], **{}))
+        None, where=ElectioneeringAggregatesGraphQLFilter(candidate_id_in=[candidate.candidate_id], **{}))
 
     assert result.__dict__ == MOCK_AGGREGATES_COLLECTION.__dict__
 
@@ -47,6 +47,6 @@ async def test_resolve_electioneering_aggregates_collection_with_where(mocked_ag
     result = await candidate.resolve_electioneering_aggregates_collection(None, where=MOCK_FILTER)
 
     mocked_aggregates_resolver.assert_called_once_with(
-        None, where=ElectioneeringAggregatesFilter(candidate_id_in=[candidate.candidate_id], **MOCK_FILTER.build_api_filter_dict()))
+        None, where=ElectioneeringAggregatesGraphQLFilter(candidate_id_in=[candidate.candidate_id], **MOCK_FILTER.build_api_filter_dict()))
 
     assert result.__dict__ == MOCK_AGGREGATES_COLLECTION.__dict__

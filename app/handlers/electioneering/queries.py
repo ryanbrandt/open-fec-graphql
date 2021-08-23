@@ -1,5 +1,5 @@
 from typing import Union
-from app.models.graphql.filters.electioneering_aggregates_filter import ElectioneeringAggregatesFilter
+from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
 import graphene
 
 from app.models.dicts.fec_electioneering_aggregates_dict import FecElectioneeringAggregatesDict
@@ -13,10 +13,10 @@ class Query(graphene.ObjectType):
     LOGGER = get_logger(__name__)
 
     electioneering_aggregates_collection = graphene.Field(
-        GraphQLElectioneeringAggregatesCollection, where=graphene.Argument(ElectioneeringAggregatesFilter, required=False))
+        GraphQLElectioneeringAggregatesCollection, where=graphene.Argument(ElectioneeringAggregatesGraphQLFilter, required=False))
 
     @cached_query
-    async def resolve_electioneering_aggregates_collection(self, info, where: Union[ElectioneeringAggregatesFilter, None] = None) -> GraphQLElectioneeringAggregatesCollection:
+    async def resolve_electioneering_aggregates_collection(self, info, where: Union[ElectioneeringAggregatesGraphQLFilter, None] = None) -> GraphQLElectioneeringAggregatesCollection:
         result = await FecApi.get('/electioneering/aggregates', FecElectioneeringAggregatesDict, params=where.build_api_filter_dict() if where else {})
 
         return GraphQLElectioneeringAggregatesCollection(result.results, pagination=result.pagination)

@@ -11,6 +11,8 @@ T = TypeVar('T', bound=TypedDict)
 
 API_KEY_PARAM = 'api_key'
 
+API_TIMEOUT = 2000
+
 
 class FecApi():
     LOGGER = get_logger(__name__)
@@ -25,7 +27,10 @@ class FecApi():
         }
         merged_params = params | auth_params
 
-        async with aiohttp.ClientSession() as session:
+        session_timeout = aiohttp.ClientTimeout(
+            total=None, sock_connect=API_TIMEOUT / 2, sock_read=API_TIMEOUT)
+
+        async with aiohttp.ClientSession(timeout=session_timeout) as session:
             BASE_URL = os.environ['FEC_BASE_URL']
             full_url = f'{BASE_URL}{url}'
 

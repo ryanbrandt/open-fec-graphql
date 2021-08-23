@@ -4,7 +4,7 @@ from app.models.dicts.fec_electioneering_aggregates_search_filter_dict import Fe
 from .base_graphql_filter import BaseGraphQLFilter
 
 
-class ElectioneeringAggregatesFilter(BaseGraphQLFilter, graphene.InputObjectType):
+class ElectioneeringAggregatesGraphQLFilter(BaseGraphQLFilter, graphene.InputObjectType):
     candidate_id_in = graphene.List(
         graphene.String, required=False, default=None)
     committee_id_in = graphene.List(
