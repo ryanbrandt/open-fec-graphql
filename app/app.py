@@ -8,6 +8,7 @@ from graphql.execution.executors.asyncio import AsyncioExecutor
 from dotenv import load_dotenv
 
 from .handlers.query import bootstrap_queries
+from app.cache.cache_api import cache_api
 from app.middleware.complexity_limit_middleware import ComplexityLimitMiddleware
 
 BASE_ROUTE = 'graphql'
@@ -27,6 +28,8 @@ def create_app() -> Flask:
 
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
+
+        app.register_blueprint(cache_api)
     else:
         middleware.append(ComplexityLimitMiddleware())
 

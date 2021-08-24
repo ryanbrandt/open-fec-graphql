@@ -13,7 +13,7 @@ class CandidateGraphQLFilter(BaseGraphQLFilter, graphene.InputObjectType):
     office_in = graphene.List(CandidateOfficeEnum)
     party_in = graphene.List(CandidatePartyEnum)
 
-    def __init__(self, candidate_id_in=None, name_contains=None, office_in=None, party_in=None, *args, **kwargs):
+    def __init__(self, candidate_id_in: list[str] = None, name_contains: str = None, office_in: list[CandidateOfficeEnum] = None, party_in: list[CandidatePartyEnum] = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.candidate_id_in = candidate_id_in
         self.name_contains = name_contains

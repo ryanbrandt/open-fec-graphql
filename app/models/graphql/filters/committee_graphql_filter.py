@@ -14,6 +14,13 @@ class CommitteeGraphQLFilter(BaseGraphQLFilter, graphene.InputObjectType):
         graphene.Int, required=False, default=None)
     party_in = graphene.List(CandidatePartyEnum)
 
+    def __init__(self, candidate_id_in: list[str] = None, committee_id_in: list[str] = None, cycle_in: list[int] = None, party_in: list[CandidatePartyEnum] = None,  *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.candidate_id_in = candidate_id_in
+        self.committee_id_in = committee_id_in
+        self.cycle_in = cycle_in
+        self.party_in = party_in
+
     def build_api_filter_dict(self) -> dict:
         filter_dict: FecCommitteeSearchFilterDict = {}
 
