@@ -22,7 +22,7 @@ class Query(graphene.ObjectType):
     async def resolve_committee(self, info, id) -> Union[GraphQLCommittee, None]:
         result = await FecApi.get(f'/committee/{id}', FecCommitteeDict)
 
-        if len(result) > 0:
+        if result.pagination['count'] > 0:
             committee = result.results[0]
 
             return GraphQLCommittee(committee)
