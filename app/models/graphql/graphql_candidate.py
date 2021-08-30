@@ -3,6 +3,7 @@ import graphene
 
 from app.models.graphql.filters.electioneering_aggregates_graphql_filter import ElectioneeringAggregatesGraphQLFilter
 from app.models.graphql.filters.independent_expenditures_totals_graphql_filter import IndependentExpendituresTotalsGraphQLFilter
+from app.models.graphql.filters.communication_costs_totals_graphql_filter import CommunicationCostsTotalsGraphQLFilter
 from .base_graphql_model import BaseGraphQLModel
 from app.models.dicts.fec_candidate_dict import FecCandidateDict
 from app.models.graphql.filters.base_graphql_filter import BaseGraphQLFilter
@@ -21,6 +22,8 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
         'app.models.graphql.collections.graphql_electioneering_aggregates_collection.GraphQLElectioneeringAggregatesCollection', where=graphene.Argument(BaseGraphQLFilter, required=False))
     independent_expenditures_totals_collection = graphene.Field(
         'app.models.graphql.collections.graphql_independent_expenditure_totals_collection.GraphQLIndependentExpenditureTotalsCollection', where=graphene.Argument(BaseGraphQLFilter, required=False))
+    communication_costs_totals_collection = graphene.Field(
+        'app.models.graphql.collections.graphql_communication_costs_totals_collection.GraphQLCommunicationCostsTotalsCollection', where=graphene.Argument(BaseGraphQLFilter, required=False))
 
     def __init__(self, candidate: FecCandidateDict, *args, **kwargs):
         super().__init__(result_dict=candidate, *args, **kwargs)
@@ -36,6 +39,11 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
 
         return IndependentExpendituresQueries()
 
+    def __get_communication_costs_queries(self):
+        from app.handlers.communication_costs.queries import Query as CommunicationCostsQueries
+
+        return CommunicationCostsQueries()
+
     async def resolve_electioneering_aggregates_collection(self, info, where: Union[BaseGraphQLFilter, None] = None):
         filter_dict = where.build_api_filter_dict() if where else {}
 
@@ -45,3 +53,8 @@ class GraphQLCandidate(BaseGraphQLModel[FecCandidateDict], graphene.ObjectType):
         filter_dict = where.build_api_filter_dict() if where else {}
 
         return await self.__get_independent_expenditures_queries().resolve_independent_expenditure_totals(info, where=IndependentExpendituresTotalsGraphQLFilter(candidate_id_in=[self.candidate_id], **filter_dict))
+
+    async def resolve_communication_costs_totals_collection(self, info,  where: Union[BaseGraphQLFilter, None] = None):
+        filter_dict = where.build_api_filter_dict() if where else {}
+
+        return await self.__get_communication_costs_queries().resolve_communication_costs_totals(info, where=CommunicationCostsTotalsGraphQLFilter(candidate_id_in=[self.candidate_id], **filter_dict))
